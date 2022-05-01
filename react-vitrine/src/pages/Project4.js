@@ -1,11 +1,22 @@
 import React from "react"
 
+import Button from "../components/Button"
+import Logo from "../components/Logo"
+import Mouse from "../components/Mouse"
+import Navigation from "../components/Navigation"
+import Project from "../components/Project"
+
 const Project4 = () => {
   return (
-    <div>
-      <h1>Project4</h1>
-    </div>
+    <main>
+      <Mouse />
+      <div className="project">
+        <Navigation />
+        <Logo />
+        <Project projectNumber={3} />
+        <Button left="/projet-3" right="/contact" />
+      </div>
+    </main>
   )
 }
-
 export default Project4
