@@ -30,7 +30,7 @@ const Home = () => {
       <motion.div
         className="home"
         initial="initial"
-        animate="animate"
+        animate="visible"
         exit="exit"
         variants={variants}
       >
