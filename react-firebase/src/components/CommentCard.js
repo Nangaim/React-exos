@@ -1,7 +1,6 @@
 import React from "react"
 
 const CommentCard = ({ comment }) => {
-  console.log(comment.date)
   const dateFormater = (date) => {
     let days = Math.floor((new Date() - new Date(date)) / (1000 * 3600 * 24))
     if (days === 0) {

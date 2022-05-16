@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react"
 import ConnnectModal from "./components/ConnnectModal"
 import { onAuthStateChanged, signOut } from "firebase/auth"
-import { auth, db } from "./utils/firebase.config"
+import { auth } from "./utils/firebase.config"
 import CreatePost from "./components/CreatePost"
-import { collection, getDocs } from "firebase/firestore"
 import Post from "./components/Post"
+import { useDispatch, useSelector } from "react-redux"
+import { getPosts } from "./actions/post.action"
 
 function App() {
   const [user, setUser] = useState(null)
-  const [posts, setPosts] = useState([])
+  const posts = useSelector((state) => state.postReducer)
+  const dispatch = useDispatch()
 
   onAuthStateChanged(auth, (currentUser) => {
     setUser(currentUser)
@@ -19,9 +21,7 @@ function App() {
   }
 
   useEffect(() => {
-    getDocs(collection(db, "posts")).then((res) =>
-      setPosts(res.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
-    )
+    dispatch(getPosts())
   }, [])
   return (
     <div>
