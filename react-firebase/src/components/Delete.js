@@ -1,10 +1,16 @@
-import { deleteDoc, doc } from "firebase/firestore"
 import React from "react"
-import { db } from "../utils/firebase.config"
+import { useDispatch } from "react-redux"
+import { deletePost, DELETE_POST } from "../actions/post.action"
 
 const Delete = ({ postId }) => {
+  const dispatch = useDispatch()
+
   const handleDelete = () => {
-    deleteDoc(doc(db, "posts", postId))
+    dispatch(deletePost(postId))
+      .then(() => {
+        dispatch({ type: DELETE_POST, payload: { postId } })
+      })
+      .catch((err) => console.log(err))
   }
   return (
     <span className="delete">

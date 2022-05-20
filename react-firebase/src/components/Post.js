@@ -5,12 +5,13 @@ import CommentPost from "./CommentPost"
 import Delete from "./Delete"
 
 const Post = ({ post, user }) => {
-  const [isEdit, setIsEdit] = useState(false)
-  const [editMessage, setEditMessage] = useState("")
+  const [edit, setEdit] = useState(false)
+  const [editMess, setEditMess] = useState(null)
   const dispatch = useDispatch()
 
   const dateFormater = (date) => {
     let days = Math.floor((new Date() - new Date(date)) / (1000 * 3600 * 24))
+
     if (days === 0) {
       return "aujourd'hui"
     } else if (days === 1) {
@@ -21,12 +22,13 @@ const Post = ({ post, user }) => {
   }
 
   const handleEdit = () => {
-    setIsEdit(false)
-    if (editMessage) {
+    setEdit(false)
+
+    if (editMess) {
       dispatch(
         editPost({
           id: post.id,
-          message: editMessage,
+          message: editMess,
         })
       )
     }
@@ -44,26 +46,26 @@ const Post = ({ post, user }) => {
         </div>
         {post.authorId === user?.uid && (
           <div className="right-part">
-            <span onClick={() => setIsEdit(!isEdit)}>
+            <span onClick={() => setEdit(!edit)}>
               <i className="fa-solid fa-pen-to-square"></i>
             </span>
             <Delete postId={post.id} />
           </div>
         )}
       </div>
-      {isEdit ? (
+      {edit ? (
         <>
           <textarea
             autoFocus
-            defaultValue={editMessage ? editMessage : post.message}
-            onChange={(e) => setEditMessage(e.target.value)}
+            defaultValue={editMess ? editMess : post.message}
+            onChange={(e) => setEditMess(e.target.value)}
           ></textarea>
           <button className="edit-btn" onClick={() => handleEdit()}>
-            Modifier Message
+            Modifier message
           </button>
         </>
       ) : (
-        <p>{editMessage ? editMessage : post.message}</p>
+        <p>{editMess ? editMess : post.message}</p>
       )}
       <CommentPost post={post} />
     </div>
