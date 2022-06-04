@@ -29,7 +29,7 @@ function App() {
       </form>
       <h2>Liste des messages</h2>
       <div>{messData?.map((mess) => (
-        <Message mess={mess} messData={messData} setMessData={setMessData}/>
+        <Message mess={mess} messData={messData} setMessData={setMessData} key={mess.id}/>
       ))}</div>
     </div>
   );
